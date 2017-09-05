@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `Data`;
 CREATE TABLE `Data` (
   `Inception` datetime DEFAULT CURRENT_TIMESTAMP,
   `UpdateDatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Status` tinyint(1) NOT NULL DEFAULT '1',
   `DataKey` varchar(255) NOT NULL,
   `ParentKey` varchar(255) NOT NULL DEFAULT '',
   `UserId` int(11) NOT NULL DEFAULT '0',
@@ -46,9 +47,10 @@ CREATE TABLE `Leaderboard` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Inception` datetime DEFAULT CURRENT_TIMESTAMP,
   `UpdateDatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Status` tinyint(1) NOT NULL DEFAULT '1',
   `LeaderboardName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,6 +64,7 @@ CREATE TABLE `LeaderboardLinkToUser` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Inception` datetime DEFAULT CURRENT_TIMESTAMP,
   `UpdateDatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Status` tinyint(1) NOT NULL DEFAULT '1',
   `UserId` int(11) DEFAULT NULL,
   `LeaderboardId` int(11) DEFAULT NULL,
   `Score` int(11) DEFAULT NULL,
@@ -70,7 +73,7 @@ CREATE TABLE `LeaderboardLinkToUser` (
   KEY `LeaderboardId` (`LeaderboardId`),
   CONSTRAINT `LeaderboardLinkToUser_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`),
   CONSTRAINT `LeaderboardLinkToUser_ibfk_2` FOREIGN KEY (`LeaderboardId`) REFERENCES `Leaderboard` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,14 +84,14 @@ DROP TABLE IF EXISTS `Transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Transaction` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `TransactionId` int(11) NOT NULL AUTO_INCREMENT,
   `Inception` datetime DEFAULT CURRENT_TIMESTAMP,
   `UpdateDatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `TransactionId` int(11) DEFAULT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT '1',
   `UserId` int(11) DEFAULT NULL,
   `CurrencyAmount` int(11) DEFAULT NULL,
   `Verifier` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Id`),
+  PRIMARY KEY (`TransactionId`),
   KEY `UserId` (`UserId`),
   CONSTRAINT `Transaction_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
@@ -105,6 +108,7 @@ CREATE TABLE `User` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Inception` datetime DEFAULT CURRENT_TIMESTAMP,
   `UpdateDatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Status` tinyint(1) NOT NULL DEFAULT '1',
   `Username` varchar(255) DEFAULT NULL,
   `Password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`),
@@ -121,4 +125,4 @@ CREATE TABLE `User` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-03  1:02:38
+-- Dump completed on 2017-09-03  9:34:39

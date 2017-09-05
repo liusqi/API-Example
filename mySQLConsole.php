@@ -176,10 +176,13 @@ class MySQLConsole{
 
         $query = $this->cleanQuery($query);
 
-        $query .= ' WHERE ';
+        $query .= ' WHERE Status=1 ';
 
         foreach($props['WHERE'] as $key => $prop){
             if(!empty($prop)){
+                if(empty($prop['key'])){
+                    $prop['key'] = 'AND';
+                }
                 $query .= $prop['key'] . ' ' . $prop['col'] . $prop['comp'];
                 
                 if(is_string($prop['val'])){
@@ -230,13 +233,16 @@ class MySQLConsole{
     public function select($tableName, $props, $column = '*'){
         $connect = $this->getConnection();
 
-        $query = 'SELECT ' . $column . ' FROM ' . $tableName . ' WHERE ';
+        $query = 'SELECT ' . $column . ' FROM ' . $tableName . ' WHERE Status=1 ';
 
         foreach($props as $prop){
             if($prop['key'] == 'ORDER BY'){
                 $query .= $prop['key'] . ' ' . $prop['col'] . ' ';
             }
             else if(!empty($prop)){
+                if(empty($prop['key'])){
+                    $prop['key'] = 'AND';
+                }
                 $query .= $prop['key'] . ' ' . $prop['col'] . $prop['comp'];
                 
                 if(is_string($prop['val'])){

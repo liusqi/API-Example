@@ -30,11 +30,7 @@ class Model {
             }
         }
 
-        if($this->save()){
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     public function delete(){
@@ -45,11 +41,24 @@ class Model {
         return false;
     }
 
-    private function save(){
+    private function save($tableName = null){
+        if(!empty($tableName)){
+            ModelFactory::setTableName($tableName);
+        }
+
         if(ModelFactory::updateModel($this)){
             return true;
         }
 
+        return false;
+    }
+
+    public function softDelete($tableName = null){
+        $this->setProperties(array('Status' => 0));
+
+        if($this->save($tableName)){
+            return true;
+        }
         return false;
     }
 }

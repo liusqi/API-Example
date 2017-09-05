@@ -85,7 +85,7 @@ abstract class LeaderboardFactory extends ModelFactory {
                     'val' => $model->getProperty('Id')
                 )
             );
-    
+
             if($console->updateRow(static::$tableName, $properties)){
                 return true;
             }

@@ -40,6 +40,15 @@ class User extends Model {
         return false;
     }
 
+    public function softDelete(){
+        $this->setProperties(array('Status' => 0));
+        
+        if($this->save()){
+            return true;
+        }
+        return false;
+    }
+
     // public function getRankInLeaderboard(Leaderboard $leaderboard){
     //     $rank = 0;
     //     $link = $leaderboard->getLinkToUser($this);

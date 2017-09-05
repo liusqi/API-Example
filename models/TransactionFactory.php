@@ -80,9 +80,9 @@ abstract class TransactionFactory extends ModelFactory {
             
             $properties['WHERE'] = array(
                 array(
-                    'col' => 'Id',
+                    'col' => 'TransactionId',
                     'comp' => '=',
-                    'val' => $model->getProperty('Id')
+                    'val' => $model->getProperty('TransactionId')
                 )
             );
     

@@ -40,6 +40,15 @@ class Leaderboard extends Model {
         return false;
     }
     
+    public function softDelete(){
+        $this->setProperties(array('Status' => 0));
+        
+        if($this->save()){
+            return true;
+        }
+        return false;
+    }
+    
     /*
         return Model
     */
@@ -78,7 +87,7 @@ class Leaderboard extends Model {
         
         $queryArray = array(
             'SET @rank:=0;',
-            'SELECT UserId, Score, (@rank:=@rank + 1) AS Rank FROM LeaderboardLinkToUser WHERE LeaderboardId=' . $this->getProperty('Id') . ' ORDER BY Score DESC, UpdateDatetime DESC;'
+            'SELECT UserId, Score, (@rank:=@rank + 1) AS Rank FROM LeaderboardLinkToUser WHERE Status=1 AND LeaderboardId=' . $this->getProperty('Id') . ' ORDER BY Score DESC, UpdateDatetime DESC;'
         );
 
         $resultArray = $console->runQueries($queryArray);

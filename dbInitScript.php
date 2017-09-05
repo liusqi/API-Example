@@ -7,6 +7,7 @@
 require_once 'requirements.php';
 echo 'You don\t have access to this file!';
 die();
+
 //-------------------------------------------------------------------Init Start-----------------------------------------------------------------------
 $console = new MySQLConsole();
 
@@ -38,6 +39,7 @@ $userColumns = array(
     'Id' => 'INT NOT NULL AUTO_INCREMENT',
     'Inception' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
     'UpdateDatetime' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
+    'Status' => 'BOOL NOT NULL DEFAULT 1',
     'Username' => 'VARCHAR(255) UNIQUE',
     'Password' => 'VARCHAR(255)'
 );
@@ -50,13 +52,14 @@ if(!$console->createTable('User', $userColumns)){
 
 // Transaction Table
 $transactionColumns = array(
-    'Id' => 'INT NOT NULL AUTO_INCREMENT',
+    'TransactionId' => 'INT NOT NULL AUTO_INCREMENT',
     'Inception' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
     'UpdateDatetime' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
-    'TransactionId' => 'INT',
+    'Status' => 'BOOL NOT NULL DEFAULT 1',
     'UserId' => 'INT',
     'CurrencyAmount' => 'INT',
     'Verifier' => 'VARCHAR(255)',
+    'PRIMARY KEY' => 'TransactionId',
     'FOREIGN KEY' => array(
         'UserId' => 'User(Id)'
     )
@@ -73,6 +76,7 @@ $leaderboardColumns = array(
     'Id' => 'INT NOT NULL AUTO_INCREMENT',
     'Inception' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
     'UpdateDatetime' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
+    'Status' => 'BOOL NOT NULL DEFAULT 1',
     'LeaderboardName' => 'VARCHAR(255)'
 );
 
@@ -87,6 +91,7 @@ $leaderboardLinkToUserColumns = array(
     'Id' => 'INT NOT NULL AUTO_INCREMENT',
     'Inception' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
     'UpdateDatetime' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
+    'Status' => 'BOOL NOT NULL DEFAULT 1',
     'UserId' => 'INT',
     'LeaderboardId' => 'INT',
     'Score' => 'INT',
@@ -105,6 +110,7 @@ if(!$console->createTable('LeaderboardLinkToUser', $leaderboardLinkToUserColumns
 $dataColumns = array(
     'Inception' => 'DATETIME DEFAULT CURRENT_TIMESTAMP',
     'UpdateDatetime' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
+    'Status' => 'BOOL NOT NULL DEFAULT 1',
     'DataKey' => 'VARCHAR(255) NOT NULL',
     'ParentKey' => 'VARCHAR(255)',
     'UserId' => 'INT',

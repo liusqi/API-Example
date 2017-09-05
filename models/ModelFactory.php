@@ -133,20 +133,25 @@ class ModelFactory {
         return $model;
     }
 
-    public static function updateModel(Model $model = null){
+    public static function updateModel(Model $model = null, $selectArray = null){
         if(!empty($model)){
             $console = new MySQLConsole(static::$dbName);
     
             $properties = $model->getProperties(SYSTEM_COLS);
             
-            $properties['WHERE'] = array(
-                array(
-                    'col' => 'Id',
-                    'comp' => '=',
-                    'val' => $model->getProperty('Id')
-                )
-            );
-    
+            if(empty($selectArray)){
+                $properties['WHERE'] = array(
+                    array(
+                        'col' => 'Id',
+                        'comp' => '=',
+                        'val' => $model->getProperty('Id')
+                    )
+                );
+            }
+            else{
+                $properties['WHERE'] = $selectArray;
+            }
+
             if($console->updateRow(static::$tableName, $properties)){
                 return true;
             }

@@ -1,7 +1,18 @@
 <?php
-define(SYSTEM_COLS, 3);
+define('SYSTEM_COLS', 3);
 
 require_once 'api/api.php';
+require_once 'api/endPoint.php';
+require_once 'api/timeStampAPI.php';
+require_once 'api/transactionAPI.php';
+require_once 'api/transactionStatsAPI.php';
+require_once 'api/scorePostAPI.php';
+require_once 'api/leaderboardGetAPI.php';
+require_once 'api/userSaveAPI.php';
+require_once 'api/userLoadAPI.php';
+require_once 'api/resetAllAPI.php';
+require_once 'api/resetAPI.php';
+
 require_once 'mySQLConsole.php';
 require_once 'models/ModelFactory.php';
 require_once 'models/Model.php';

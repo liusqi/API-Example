@@ -39,4 +39,13 @@ class Transaction extends Model{
 
         return false;
     }
+    
+    public function softDelete(){
+        $this->setProperties(array('Status' => 0));
+        
+        if($this->save()){
+            return true;
+        }
+        return false;
+    }
 }
